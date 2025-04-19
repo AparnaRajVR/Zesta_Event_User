@@ -154,7 +154,7 @@ class WelcomeScreen extends GetWidget<FirebaseControl>{
                 const SizedBox(width: 28),
                 GestureDetector(
                   onTap: () {
-                    
+                   controller.signInWithFacebook(); 
                   },
                   child: Container(
                     height: 50,
