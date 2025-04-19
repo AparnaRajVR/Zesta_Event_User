@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zesta_1/constant/color.dart';
-import 'package:zesta_1/view/screen/entry/reg_Screen.dart';
+import 'package:zesta_1/view/screen/entry/reg_screen.dart';
 import 'package:zesta_1/view/widget/custom_feild.dart';
 
 import '../../../services/firebase_control.dart';

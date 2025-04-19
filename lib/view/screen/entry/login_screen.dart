@@ -35,12 +35,12 @@ class LoginScreen extends GetWidget<FirebaseControl> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 colors: [
-                  // AppColors.primary,
+                  AppColors.primary,
                   // AppColors.second,
                   // AppColors.accent,
-                   Color(0xffB81736),
-                  
-                 Color(0XFF281537),
+                //    Color(0xffB81736),
+                   AppColors.second,
+              
                 ],
               ),
             ),
@@ -118,12 +118,10 @@ class LoginScreen extends GetWidget<FirebaseControl> {
                             gradient: const LinearGradient(
                               begin: Alignment.topCenter,
                               colors: [
-                                // AppColors.primary,
-                                // AppColors.second,
-                                // AppColors.accent,
-                                Color(0xffB81736),
-                  
-                               Color(0XFF281537),
+                                AppColors.primary,
+                                AppColors.second,
+                                
+                              
                               ],
                             ),
                           ),
@@ -182,3 +180,4 @@ class LoginScreen extends GetWidget<FirebaseControl> {
     );
   }
 }
+
