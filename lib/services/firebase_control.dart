@@ -1,7 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../view/screen/entry/login_screen.dart';
@@ -9,9 +9,10 @@ import '../view/screen/dash_board.dart';
 
 class FirebaseControl extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
-  final Rxn<User?> _firebaseUser = Rxn<User?>();
+  final Rxn<User> _firebaseUser = Rxn<User>();
   var verificationId = "".obs;
+
+  GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
 
   String? get userEmail => _firebaseUser.value?.email;
 
@@ -28,10 +29,18 @@ class FirebaseControl extends GetxController {
     }
 
     try {
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      await FirebaseFirestore.instance.collection('Users').doc(userCredential.user!.uid).set({
-        "Full Name": fullname,
-        "Email": email,
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      // Save user data with role
+      await FirebaseFirestore.instance
+          .collection('zesta_user')
+          .doc(userCredential.user!.uid)
+          .set({
+        "fullName": fullname,
+        "email": email,
+        "role": "zestauser", // Assign zestauser role
+        "uid": userCredential.user!.uid,
       });
 
       Get.offAll(() => LoginScreen());
@@ -42,10 +51,57 @@ class FirebaseControl extends GetxController {
 
   Future<void> login(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      Get.offAll(() => Dashboard());
+      UserCredential userCredential =
+          await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+      final uid = userCredential.user!.uid;
+
+      final snapshot = await FirebaseFirestore.instance
+          .collection('zesta_user')
+          .doc(uid)
+          .get();
+
+      if (snapshot.exists) {
+        String role = snapshot['role'];
+        if (role == 'zestauser') {
+          Get.offAll(() => Dashboard());
+        } else {
+          await _auth.signOut();
+          Get.snackbar("Access Denied", "Only Zesta Users are allowed.");
+        }
+      } else {
+        Get.snackbar("Error", "User record not found in zesta_user.");
+      }
     } catch (e) {
       Get.snackbar("Error while signing in", getErrorMessage(e.toString()));
+    }
+  }
+
+  Future<void> googleSignIN() async {
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    if (googleUser == null) return;
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
+
+    UserCredential userCredential =
+        await _auth.signInWithCredential(credential);
+
+    final uid = userCredential.user!.uid;
+
+    final snapshot = await FirebaseFirestore.instance
+        .collection('zesta_user')
+        .doc(uid)
+        .get();
+
+    if (snapshot.exists && snapshot['role'] == 'zestauser') {
+      Get.offAll(Dashboard());
+    } else {
+      await _auth.signOut();
+      Get.snackbar("Access Denied", "Only Zesta Users are allowed.");
     }
   }
 
@@ -54,87 +110,49 @@ class FirebaseControl extends GetxController {
       await _auth.signOut();
       Get.offAll(() => LoginScreen());
     } catch (e) {
-      Get.snackbar("Error while signing out", getErrorMessage(e.toString()));
-    }
-  }
-
-  Future<void> googleSignIN() async {
-    try {
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      if (googleUser == null) return;
-
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-        accessToken: googleAuth.accessToken,
-      );
-
-      await _auth.signInWithCredential(credential);
-      Get.offAll(() => Dashboard());
-    } catch (e) {
-      Get.snackbar("Google Login Failed", getErrorMessage(e.toString()));
+      String errorMessage = getErrorMessage(e.toString());
+      Get.snackbar("Error while signing out", errorMessage);
     }
   }
 
   Future<void> phoneAuthentication(String phone) async {
-    try {
-      await _auth.verifyPhoneNumber(
-        phoneNumber: phone,
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          await _auth.signInWithCredential(credential);
-          Get.offAll(() => Dashboard());
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          Get.snackbar('Error', e.code == 'invalid-phone-number' ? 'Invalid phone number' : 'Something went wrong. Try again.');
-        },
-        codeSent: (String verificationId, int? resendToken) {
-          this.verificationId.value = verificationId;
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          this.verificationId.value = verificationId;
-        },
-      );
-    } catch (e) {
-      Get.snackbar("Error", getErrorMessage(e.toString()));
-    }
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phone,
+      verificationCompleted: (credentials) async {
+        await _auth.signInWithCredential(credentials);
+      },
+      verificationFailed: (e) {
+        if (e.code == 'invalid-phone-number') {
+          Get.snackbar('Error', 'The provided phone number is not valid');
+        } else {
+          Get.snackbar('Error', 'Something went wrong. Try again');
+        }
+      },
+      codeSent: (verificationId, resendToken) {
+        this.verificationId.value = verificationId;
+      },
+      codeAutoRetrievalTimeout: (verificationId) {
+        this.verificationId.value = verificationId;
+      },
+    );
   }
 
   Future<bool> verifyOTP(String otp) async {
-    try {
-      final credentials = await _auth.signInWithCredential(
-        PhoneAuthProvider.credential(verificationId: verificationId.value, smsCode: otp),
-      );
-      return credentials.user != null;
-    } catch (e) {
-      Get.snackbar("Error", "Invalid OTP. Please try again.");
-      return false;
-    }
+    var credentials = await _auth.signInWithCredential(
+      PhoneAuthProvider.credential(
+          verificationId: verificationId.value, smsCode: otp),
+    );
+    return credentials.user != null;
   }
 
-  Future<void> signInWithFacebook() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login(permissions: ['email']);
-
-      if (result.status == LoginStatus.success) {
-        final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken!.tokenString);
-        await _auth.signInWithCredential(credential);
-        Get.offAll(() => Dashboard());
-      } else {
-        Get.snackbar("Facebook Login Failed", result.message ?? "Unknown error");
-      }
-    } catch (e) {
-      Get.snackbar("Error", "Facebook login failed: ${e.toString()}");
-    }
-  }
-
-  Future<void> sendPasswordResetEmail(String email) async {
-    try {
-      await _auth.sendPasswordResetEmail(email: email);
-      Get.offAll(() => LoginScreen());
-      Get.snackbar("Success", "Password reset email has been sent.");
-    } catch (e) {
-      Get.snackbar("Error", "Failed to send reset email: ${e.toString()}");
-    }
+  void sendPasswordResetEmail(String email) async {
+    await _auth.sendPasswordResetEmail(email: email).then((_) {
+      Get.offAll(LoginScreen());
+      Get.snackbar("Success", "Password reset email link has been sent");
+    }).catchError(
+        (onError) {
+          Get.snackbar("Error in Email Reset", onError.message);
+        });
   }
 
   String getErrorMessage(String error) {

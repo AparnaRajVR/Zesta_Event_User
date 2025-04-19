@@ -1,6 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zesta_1/view/screen/entry/login_screen.dart';
+import 'package:zesta_1/view/screen/dash_board.dart';
 import 'package:zesta_1/view/widget/registration_form.dart';
 
 import '../../../constant/color.dart';
@@ -28,11 +29,10 @@ class RegScreen extends GetWidget<FirebaseControl> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   colors: [
-                    // AppColors.primary,
-                    // AppColors.second,
-                    // AppColors.accent,
-                     Color(0xffB81736),
-                Color(0XFF281537),
+                    AppColors.primary,
+                    AppColors.second,
+                   
+                
                   ],
                 ),
               ),
@@ -71,7 +71,7 @@ class RegScreen extends GetWidget<FirebaseControl> {
                     );
                   },
                   onLoginTap: () {
-                 Get.to( () => const LoginScreen());
+                 Get.to( () => const Dashboard());
                   },
                 ),
               ),

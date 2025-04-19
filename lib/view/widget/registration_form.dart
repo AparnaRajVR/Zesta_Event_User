@@ -48,7 +48,7 @@ class RegistrationForm extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 65),
                         CustomTextField(
                           label: 'Full Name',
                           hintText: 'Enter your full name',
@@ -122,12 +122,9 @@ class RegistrationForm extends StatelessWidget {
                           gradient: const LinearGradient(
                             begin: Alignment.topCenter,
                             colors: [
-                              // AppColors.primary,
-                              // AppColors.second,
-                              // AppColors.accent,
-                               Color(0xffB81736),
-                              Color(0XFF281537),
-                            ],
+                              AppColors.primary,
+                              AppColors.second,
+                            ]
                           ),
                         ),
                         child: const Center(
@@ -143,35 +140,7 @@ class RegistrationForm extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Already have an account?",
-                            style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.textaddn,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          GestureDetector(
-                            onTap: onLoginTap,
-                            child: Text(
-                              "Sign in",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 19,
-                                color: AppColors.textdark,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
+                    
                   ],
                 ),
               ),
