@@ -48,7 +48,7 @@ class LoginScreen extends GetWidget<FirebaseControl> {
               padding: EdgeInsets.only(top: 60.0, left: 22),
               child: Text(
                 'Hello\nSign in!',
-                // textAlign: TextAlign.center,
+                // text
                 style: TextStyle(
                   fontSize: 30,
                   color: AppColors.textlight,
