@@ -32,7 +32,7 @@ class WelcomeScreen extends GetWidget<FirebaseControl>{
             Padding(
               padding: const EdgeInsets.only(top: 100.0),
               child: Image.asset(
-                'assets/logo.png',
+                'assets/images/logo.png',
                 height: 170,
                 width: 170,
               ),
@@ -123,7 +123,7 @@ class WelcomeScreen extends GetWidget<FirebaseControl>{
                     ),
                     child: Center(
                       child: Image.asset(
-                        'assets/google.png',
+                        'assets/images/google.png',
                         height: 30,
                         width: 30,
                       ),

@@ -75,7 +75,7 @@ class SplashScreen extends StatelessWidget {
               navigateToNextScreen(snapshot.data);
             });
 
-            return Center(child: Image.asset('assets/logo.png', height: 150, width: 150));
+            return Center(child: Image.asset('assets/images/logo.png', height: 150, width: 150));
           }
         },
       ),
