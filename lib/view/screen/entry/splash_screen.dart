@@ -119,12 +119,20 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 2), () => _navigate(context));
 
     return Scaffold(
-      body: Center(
-        child: Image.asset(
-          'assets/logo.png',
-          height: 150,
-          width: 150,
-        ),
+      body: FutureBuilder<User?>(
+        future: checkUserStatus(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            // Navigate to the next screen once data is ready
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              navigateToNextScreen(snapshot.data);
+            });
+
+            return Center(child: Image.asset('assets/images/logo.png', height: 150, width: 150));
+          }
+        },
       ),
     );
   }

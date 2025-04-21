@@ -209,158 +209,155 @@ class WelcomeScreen extends GetWidget<FirebaseControl> {
             ],
           ),
         ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 40),
-                Center(
-                  child: Image.asset(
-                    'assets/logo.png',
-                    height: 170,
-                    width: 170,
-                  ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 100.0),
+              child: Image.asset(
+                'assets/images/logo.png',
+                height: 170,
+                width: 170,
+              ),
+            ),
+            const SizedBox(
+              height: 60,
+            ),
+            const Text(
+              'Welcome Back',
+              style: TextStyle(
+                fontSize: 33,
+                color: AppColors.textlight, 
+              ),
+            ),
+            const SizedBox(height: 38),
+            GestureDetector(
+              onTap: () {
+                Get.to( () => const LoginScreen());
+                
+              },
+              child: Container(
+                height: 53,
+                width: 320,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: AppColors.textlight), 
                 ),
-                const SizedBox(height: 50),
-                const Text(
-                  'Welcome Back',
-                  style: TextStyle(
-                    fontSize: 33,
-                    color: AppColors.textlight,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 40),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => const LoginScreen());
-                  },
-                  child: Container(
-                    height: 53,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: AppColors.textlight),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'SIGN IN',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textlight,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 25),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => const RegScreen());
-                  },
-                  child: Container(
-                    height: 53,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
+                child: const Center(
+                  child: Text(
+                    'SIGN IN',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                       color: AppColors.textlight,
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: AppColors.textlight),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            GestureDetector(
+              onTap: () {
+              Get.to( () => const RegScreen());
+              },
+              child: Container(
+                height: 53,
+                width: 320,
+                decoration: BoxDecoration(
+                  color: AppColors.textlight,
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: AppColors.textlight), 
+                ),
+                child: const Center(
+                  child: Text(
+                    'SIGN UP',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textdark, 
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 32),
+            const Text(
+              'Or Login with ' ,
+              style: TextStyle(
+                fontSize: 17,
+                color: AppColors.textlight, 
+              ),
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () 
+                  {
+                 controller.googleSignIN();
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.textlight, 
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/images/google.png',
+                        height: 30,
+                        width: 30,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 28),
+                GestureDetector(
+                  onTap: () {
+                    Get.to( () =>  OtpSend());
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.textlight, 
                     ),
                     child: const Center(
-                      child: Text(
-                        'SIGN UP',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textdark,
-                        ),
+                      child: Icon(
+                        Icons.phone,
+                        size: 29,
+                        color: Colors.green, 
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 32),
-                const Text(
-                  'Or Login with',
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: AppColors.textlight,
+                const SizedBox(width: 28),
+                GestureDetector(
+                  onTap: () {
+                  //  controller.signInWithFacebook(); 
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.textlight, 
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.facebook_rounded,
+                        size: 32,
+                        color: Colors.blue, 
+                      ),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        controller.googleSignIN();
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.textlight,
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/google.png',
-                            height: 30,
-                            width: 30,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 28),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(() => OtpSend());
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.textlight,
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.phone,
-                            size: 29,
-                            color: Colors.green,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 28),
-                    GestureDetector(
-                      onTap: () {
-                        // Add your Facebook login function here
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.textlight,
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.facebook_rounded,
-                            size: 32,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
               ],
             ),
-          ),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );

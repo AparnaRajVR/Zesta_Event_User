@@ -54,12 +54,12 @@ class OnboardingScreen extends StatelessWidget {
               },
               children: [
                 OnboardingPage(
-                  image: 'assets/onboard_1.png',
+                  image: 'assets/images/onboard_1.png',
                   title: 'Discover Events That Matter',
                   subtitle: 'Explore a wide range of events curated just for you. Find, register, and participate with ease.',
                 ),
                 OnboardingPage(
-                  image: 'assets/onboard_2.png',
+                  image: 'assets/images/onboard_2.png',
                   title: 'Seamless Participation, Every Time',
                   subtitle: 'Get real-time updates, schedules, and notifications to stay on top of every event detail.',
                 ),

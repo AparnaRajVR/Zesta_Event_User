@@ -71,7 +71,7 @@ class RegScreen extends GetWidget<FirebaseControl> {
                     );
                   },
                   onLoginTap: () {
-                 Get.to( () => const Dashboard());
+                 Get.to( () =>  Dashboard());
                   },
                 ),
               ),
