@@ -37,6 +37,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_facebook_auth: ^7.1.1
+  geolocator: ^14.0.0
   get: ^4.6.6
   google_nav_bar: ^5.0.7
   google_sign_in: ^6.2.2
