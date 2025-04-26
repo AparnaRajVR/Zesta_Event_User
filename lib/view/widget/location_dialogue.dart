@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class LocationDialogController extends GetxController {
-  var locationText = 'Fetching location...'.obs;
+   var locationText = ''.obs;
 
   @override
   void onReady() {
