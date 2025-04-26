@@ -1,10 +1,11 @@
-
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:zesta_1/constant/color.dart';
-
 
 class LocationDialogController extends GetxController {
+  var locationText = 'Fetching location...'.obs;
+
   @override
   void onReady() {
     super.onReady();
@@ -27,32 +28,26 @@ class LocationDialogController extends GetxController {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                'assets/images/location.jpg',
-                height: 120,
-              ),
+              Image.asset('assets/images/location.jpg', height: 120),
               const SizedBox(height: 25),
               const Text(
                 'Allow Location',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
               const Text(
                 'We need your permission to access your location.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.black54),
               ),
               const SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    await _getLocation();
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink,
                     padding: const EdgeInsets.symmetric(vertical: 14),
@@ -62,7 +57,7 @@ class LocationDialogController extends GetxController {
                   ),
                   child: const Text(
                     'Allow Location',
-                    style: TextStyle(fontSize: 16, color: AppColors.textlight),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
               ),
@@ -70,11 +65,8 @@ class LocationDialogController extends GetxController {
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: const Text(
-                  'No Thanks',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                  ),
+                  'Deny',
+                  style: TextStyle(fontSize: 16, color: Colors.black54),
                 ),
               ),
             ],
@@ -83,8 +75,38 @@ class LocationDialogController extends GetxController {
       ),
     );
   }
+
+  Future<void> _getLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      Get.snackbar("Location Services", "Please enable location services.");
+      return;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        Get.snackbar("Permission Denied", "Location permission is denied.");
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      Get.snackbar("Permission Denied", "Location permissions are permanently denied.");
+      return;
+    }
+
+    final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print("Current Location: ${position.latitude}, ${position.longitude}");
+
+    // Get place name
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+      final place = placemarks.first;
+      locationText.value = "${place.locality}, ${place.administrativeArea}";
+    } catch (e) {
+      locationText.value = "Location available";
+    }
+  }
 }
-
-
-
-
