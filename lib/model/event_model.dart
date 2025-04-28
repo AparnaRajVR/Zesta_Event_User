@@ -14,7 +14,8 @@ class EventModel {
   final List<String>? languages;
   final String? name;
   final String? startTime;
-  final int? ticketPrice;
+  final double? ticketPrice;
+  final String organizerName;
 
   EventModel({
     this.address,
@@ -31,6 +32,7 @@ class EventModel {
     this.name,
     this.startTime,
     this.ticketPrice,
+    required this.organizerName,
   });
 
   factory EventModel.fromMap(Map<String, dynamic> map) {
@@ -49,6 +51,7 @@ class EventModel {
       name: map['name'],
       startTime: map['startTime'],
       ticketPrice: map['ticketPrice'],
+      organizerName: map['organizerName'] ?? '',
     );
   }
 }

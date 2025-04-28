@@ -2,9 +2,12 @@
 // Reusable Carousel Widget
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:zesta_1/model/event_model.dart';
 
 class EventCarousel extends StatelessWidget {
-  final List<dynamic> events;
+  
+  final List<EventModel> events;
+
 
   const EventCarousel({Key? key, required this.events}) : super(key: key);
 

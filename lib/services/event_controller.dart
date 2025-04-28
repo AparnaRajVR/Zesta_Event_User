@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:zesta_1/model/event_model.dart';
@@ -16,25 +18,20 @@ class EventController extends GetxController {
     super.onInit();
   }
 
-  // void fetchEvents() async {
-  //   final snapshot = await FirebaseFirestore.instance.collection('events').get();
-  //   final eventList = snapshot.docs.map((doc) => EventModel.fromMap(doc.data())).toList();
-  //   events.value = eventList;
-  // }
   void fetchEvents() async {
   try {
     final snapshot = await FirebaseFirestore.instance.collection('events').get();
-    print('Firestore snapshot size: ${snapshot.docs.length}'); // Debug print
+    log('Firestore snapshot size: ${snapshot.docs.length}'); 
 
     final eventList = snapshot.docs.map((doc) {
-      print('Doc data: ${doc.data()}'); // Debug print each document data
+      log('Doc data: ${doc.data()}'); 
       return EventModel.fromMap(doc.data());
     }).toList();
 
     events.value = eventList;
-    print('Events loaded: ${events.length}');
+    log('Events loaded: ${events.length}');
   } catch (e) {
-    print('Error fetching events: $e');
+    log('Error fetching events: $e');
   }
 }
 

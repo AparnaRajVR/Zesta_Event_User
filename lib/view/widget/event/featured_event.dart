@@ -1,61 +1,54 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:zesta_1/model/event_model.dart';
 
-class FeaturedEventWidget extends StatelessWidget {
-  final String title;
-  final String? imageUrl;
+class FeaturedEventsListWidget extends StatelessWidget {
+  final List<EventModel> events;
 
-  const FeaturedEventWidget({
-    Key? key,
-    required this.title,
-    this.imageUrl,
-  }) : super(key: key);
+  const FeaturedEventsListWidget({super.key, required this.events});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      margin: const EdgeInsets.only(right: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            blurRadius: 6,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-            child: imageUrl != null && imageUrl!.isNotEmpty
-                ? Image.network(
-                    imageUrl!,
-                    height: 100,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  )
-                : Container(
-                    height: 100,
-                    color: Colors.grey[300],
-                    child: const Center(child: Icon(Icons.event, size: 50)),
-                  ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Featured Events",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 12),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: events.length,
+          itemBuilder: (context, index) {
+            final event = events[index];
+            log("Featured Event: ${event.name}, Images: ${event.images}");
+            return Card(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              child: ListTile(
+                leading: event.images != null && event.images!.isNotEmpty
+                    ? Image.network(
+                        event.images!.first,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                      )
+                    : const Icon(Icons.event),
+                title: Text(event.name ?? 'Unnamed Event'),
+                subtitle: Text(
+                  'Date: ${event.date?.toString().split(' ')[0] ?? 'N/A'} | Price: \$${event.ticketPrice?.toStringAsFixed(2) ?? 'N/A'}',
+                ),
+                onTap: () {
+                  log('Tapped event: ${event.name}');
+                },
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
