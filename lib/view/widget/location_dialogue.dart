@@ -106,7 +106,7 @@ class LocationDialogController extends GetxController {
       final place = placemarks.first;
       locationText.value = "${place.locality}, ${place.administrativeArea}";
     } catch (e) {
-      locationText.value = "Location available";
+      locationText.value = "";
     }
   }
 }

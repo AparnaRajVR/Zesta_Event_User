@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:zesta_1/services/event_controller.dart';
 import 'package:zesta_1/view/screen/favorite_page.dart';
 import 'package:zesta_1/view/screen/profile_screen.dart';
@@ -9,13 +10,12 @@ import 'package:zesta_1/view/screen/ticket_screen.dart';
 import 'package:zesta_1/view/widget/appbar_wdget.dart';
 import 'package:zesta_1/view/widget/bottom_nav.dart';
 
-import 'package:zesta_1/view/widget/event/category_list.dart';
+import 'package:zesta_1/view/widget/event/category_event.dart';
 import 'package:zesta_1/view/widget/event/event_carousel.dart';
-import 'package:zesta_1/view/widget/event/event_images.dart';
-import 'package:zesta_1/view/widget/event/featured_event.dart';
+import 'package:zesta_1/view/widget/event/recommented_item.dart';
 import 'package:zesta_1/view/widget/location_dialogue.dart';
 
-enum SelectedTab { home, tickets, analytics, profile }
+ enum SelectedTab { home, movies, liveEvents, profile }
 
 class DashboardController extends GetxController {
   var selectedTabIndex = 0.obs;
@@ -32,8 +32,8 @@ class Dashboard extends StatelessWidget {
   Dashboard({super.key});
 
   final List<Widget> pages = [
-    const TicketScreen(),
-    const FavoritePage(),
+    const TicketScreen(), 
+    const FavoritePage(), 
     const ProfileScreen(),
   ];
 
@@ -54,13 +54,14 @@ class Dashboard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CategoryListWidget(events: eventController.allEvents),
+                    
+                    const SizedBox(height: 16),
+                    CategoryIconWidget(),
                     const SizedBox(height: 16),
                     EventCarousel(events: eventController.allEvents),
-                    const SizedBox(height: 24),
-                    FeaturedEventsListWidget(events: eventController.featuredEvents),
-                    const SizedBox(height: 24),
-                    EventImagesListWidget(events: eventController.allEvents),
+                    const SizedBox(height: 16),
+                    
+                    RecommendedItemsWidget(events: eventController.allEvents),
                   ],
                 ),
               ),
