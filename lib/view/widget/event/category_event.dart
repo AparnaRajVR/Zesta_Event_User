@@ -6,13 +6,24 @@ class CategoryIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, Object>> categories = [
-      {'icon': FontAwesomeIcons.film, 'label': 'Movies'},
-      {'icon': FontAwesomeIcons.play, 'label': 'Stream'},
-      {'icon': FontAwesomeIcons.music, 'label': 'Music'},
-      {'icon': FontAwesomeIcons.futbol, 'label': 'Sports'},
-      {'icon': FontAwesomeIcons.microphone, 'label': 'Perfor'},
-    ];
+  final List<Map<String, Object>> categories = [
+  {'icon': FontAwesomeIcons.music, 'label': 'Music'},
+  {'icon': FontAwesomeIcons.futbol, 'label': 'Sports'},
+  {'icon': FontAwesomeIcons.microphone, 'label': 'Performance'},
+  {'icon': FontAwesomeIcons.bookOpen, 'label': 'Education'},
+  {'icon': FontAwesomeIcons.stethoscope, 'label': 'health'},
+   {'icon': FontAwesomeIcons.utensils, 'label': 'Food'},
+  {'icon': FontAwesomeIcons.guitar, 'label': 'Concert'},
+  {'icon': FontAwesomeIcons.paintbrush, 'label': 'Art'},
+  {'icon': FontAwesomeIcons.theaterMasks, 'label': 'Comedy'},
+ 
+  {'icon': FontAwesomeIcons.bars, 'label': 'See All'},
+
+  
+
+ 
+
+];
 
     return SizedBox(
       height: 80,

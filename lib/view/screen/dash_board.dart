@@ -55,9 +55,9 @@ class Dashboard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 11),
                     CategoryIconWidget(),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 18),
                     EventCarousel(events: eventController.allEvents),
                     const SizedBox(height: 16),
                     
