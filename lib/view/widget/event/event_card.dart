@@ -14,7 +14,7 @@ class EventCard extends StatelessWidget {
     required this.imageUrl,
     required this.date,
     required this.eventName,
-    required this.location,
+     required this.location,
     required this.categoryName,
   });
 

@@ -33,14 +33,16 @@ class Dashboard extends StatelessWidget {
 
   final List<Widget> pages = [
     const TicketScreen(), 
-    const FavoritePage(), 
+    const Analytics(), 
     const ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarWidget(locationController: locationController),
+    return Obx(() =>Scaffold(
+      appBar: dashboardController.selectedTabIndex.value == SelectedTab.home.index
+    ? AppBarWidget(locationController: locationController)
+    : null,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Obx(() {
@@ -80,6 +82,7 @@ class Dashboard extends StatelessWidget {
         selectedIndex: dashboardController.selectedTabIndex,
         onTabChange: dashboardController.onTabSelected,
       ),
-    );
+    ));
   }
 }
+

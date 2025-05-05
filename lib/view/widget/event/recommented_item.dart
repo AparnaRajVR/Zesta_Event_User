@@ -5,6 +5,7 @@ import 'package:zesta_1/constant/color.dart';
 import 'package:zesta_1/model/event_model.dart';
 import 'package:zesta_1/services/event_controller.dart';
 import 'package:zesta_1/view/widget/event/event_card.dart';
+import 'package:zesta_1/view/widget/event/event_details.dart';
 import 'package:zesta_1/view/widget/event/event_grid.dart';
 
 class RecommendedItemsWidget extends StatelessWidget {
@@ -61,14 +62,20 @@ final formattedDate = event.date != null
 
 return Padding(
   padding: const EdgeInsets.only(right: 12),
-  child: EventCard(
-    imageUrl: event.images?.isNotEmpty ?? false
-        ? event.images!.first
-        : 'https://via.placeholder.com/200x150',
-    date: formattedDate,
-    eventName: event.name ?? 'Unnamed Event',
-    location: event.city ?? 'Unknown Location',
-    categoryName: categoryName,
+  child: InkWell(
+      onTap: () {
+      
+      Get.to(() => EventDetailsPage(event: event));
+    },
+    child: EventCard(
+      imageUrl: event.images?.isNotEmpty ?? false
+          ? event.images!.first
+          : 'https://via.placeholder.com/200x150',
+      date: formattedDate,
+      eventName: event.name ?? 'Unnamed Event',
+      location: event.city ?? 'Unknown Location',
+      categoryName: categoryName,
+    ),
   ),
 );
             
