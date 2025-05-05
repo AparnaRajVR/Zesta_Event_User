@@ -63,7 +63,7 @@ class OtpSend extends GetWidget<FirebaseControl> {
                 const SizedBox(height: 40),
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.textlight,
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
@@ -94,7 +94,7 @@ class OtpSend extends GetWidget<FirebaseControl> {
                         borderSide: BorderSide.none,
                       ),
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: AppColors.textlight,
                       contentPadding: const EdgeInsets.symmetric(vertical: 20),
                     ),
                     keyboardType: TextInputType.phone,
@@ -119,7 +119,7 @@ class OtpSend extends GetWidget<FirebaseControl> {
                             'Error',
                             'Failed to send OTP. Try again.',
                             backgroundColor: AppColors.primary,
-                            colorText: Colors.white,
+                            colorText: AppColors.textlight,
                             snackPosition: SnackPosition.TOP,
                           );
                         });
@@ -128,7 +128,7 @@ class OtpSend extends GetWidget<FirebaseControl> {
                           'Invalid Number',
                           'Please enter a valid 10-digit phone number.',
                           backgroundColor: AppColors.primary,
-                          colorText: Colors.white,
+                          colorText: AppColors.textlight,
                           snackPosition: SnackPosition.TOP,
                         );
                       }

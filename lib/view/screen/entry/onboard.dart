@@ -64,7 +64,7 @@ class OnboardingScreen extends StatelessWidget {
                   subtitle: 'Get real-time updates, schedules, and notifications to stay on top of every event detail.',
                 ),
                 OnboardingPage(
-                  image: 'assets/onboard_3.png',
+                  image: 'assets/images/onboard_3.png',
                   title: 'Your Journey, Simplified',
                   subtitle: 'Track your registrations, connect with other participants, and make every event memorable.',
                 ),

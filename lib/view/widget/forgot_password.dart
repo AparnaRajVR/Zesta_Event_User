@@ -77,11 +77,11 @@ class ForgotPassword extends GetWidget<FirebaseControl> {
                             gradient: const LinearGradient(
                               begin: Alignment.topCenter,
                               colors: [
-                                // AppColors.primary,
+                                 // AppColors.primary,
                                 // AppColors.second,
                                 // AppColors.accent,
                                 Color(0xffB81736),
-                  
+                 
                                Color(0XFF281537),
                               ],
                             ),

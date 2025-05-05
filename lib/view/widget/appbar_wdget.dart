@@ -20,7 +20,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           const Text(
             "Let’s Get Started!",
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.textlight,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -29,7 +29,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           Obx(() => Text(
                 locationController.locationText.value,
                 style: const TextStyle(
-                  color: Colors.white70,
+                  color: AppColors.textlight,
                   fontSize: 14,
                 ),
               )),
@@ -37,15 +37,15 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.search, color: Colors.white),
+          icon: const Icon(Icons.search, color: AppColors.textlight),
           onPressed: () {},
         ),
            IconButton(
-          icon: const Icon(FontAwesomeIcons.heart, color: Colors.white),
+          icon: const Icon(FontAwesomeIcons.heart, color: AppColors.textlight),
           onPressed: () {},
         ),
         IconButton(
-          icon: const Icon(Icons.notifications, color: Colors.white),
+          icon: const Icon(Icons.notifications, color: AppColors.textlight),
           onPressed: () {},
         ),
       ],

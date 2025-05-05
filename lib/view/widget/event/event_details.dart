@@ -81,14 +81,14 @@ class EventDetailsPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // Top Image Slider
+                  
                   SizedBox(
                     height: imageHeight,
                     width: double.infinity,
                     child: EventImageSlider(
                       images: event.images ?? [],
                       height: imageHeight,
-                      borderRadius: BorderRadius.zero, // or any radius you want
+                      borderRadius: BorderRadius.zero, 
                     ),
                   ),
                   Container(
@@ -164,7 +164,7 @@ class EventDetailsPage extends StatelessWidget {
                           children: [
                             const Icon(Icons.person, color: Colors.grey),
                             const SizedBox(width: 8),
-                            Text('Organizer: ${event.organizerName }'),
+                            Text(' ${event.organizerName }'),
                           ],
                         ),
                         const SizedBox(height: 12),

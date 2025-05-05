@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zesta_1/constant/color.dart';
 
 import 'package:zesta_1/services/event_controller.dart';
-import 'package:zesta_1/view/screen/favorite_page.dart';
+import 'package:zesta_1/view/screen/Analytcs_page.dart';
 import 'package:zesta_1/view/screen/profile_screen.dart';
 import 'package:zesta_1/view/screen/ticket_screen.dart';
 import 'package:zesta_1/view/widget/appbar_wdget.dart';
@@ -15,7 +16,7 @@ import 'package:zesta_1/view/widget/event/event_carousel.dart';
 import 'package:zesta_1/view/widget/event/recommented_item.dart';
 import 'package:zesta_1/view/widget/location_dialogue.dart';
 
- enum SelectedTab { home, movies, liveEvents, profile }
+enum SelectedTab { home, ticket, analytics, profile }
 
 class DashboardController extends GetxController {
   var selectedTabIndex = 0.obs;
@@ -34,7 +35,7 @@ class Dashboard extends StatelessWidget {
   final List<Widget> pages = [
     const TicketScreen(), 
     const Analytics(), 
-    const ProfileScreen(),
+     ProfileScreen(),
   ];
 
   @override
@@ -43,7 +44,7 @@ class Dashboard extends StatelessWidget {
       appBar: dashboardController.selectedTabIndex.value == SelectedTab.home.index
     ? AppBarWidget(locationController: locationController)
     : null,
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.textlight,
       body: SafeArea(
         child: Obx(() {
           if (dashboardController.selectedTabIndex.value == SelectedTab.home.index) {

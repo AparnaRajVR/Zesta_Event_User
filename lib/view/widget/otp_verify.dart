@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zesta_1/constant/color.dart';
 import 'package:zesta_1/services/firebase_control.dart';
 import 'package:zesta_1/view/screen/dash_board.dart';
 
@@ -23,7 +24,7 @@ class OtpScreen extends GetWidget<FirebaseControl>
             SizedBox(height: 10),
             Text(
               "We've sent an OTP on your phone number",
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+              style: TextStyle(fontSize: 16, color: AppColors.textaddn),
             ),
             SizedBox(height: 20),
             TextField(

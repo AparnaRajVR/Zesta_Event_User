@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:zesta_1/model/event_model.dart';
 import 'package:zesta_1/services/event_controller.dart';
 import 'package:zesta_1/view/widget/event/event_card.dart';
-
+import 'package:zesta_1/view/widget/event/event_details.dart'; 
 class AllEventsGridPage extends StatelessWidget {
   final List<EventModel> events;
   final eventController = Get.find<EventController>();
@@ -25,7 +25,7 @@ class AllEventsGridPage extends StatelessWidget {
         return GridView.builder(
           padding: const EdgeInsets.all(12),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // two items per row
+            crossAxisCount: 2, 
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
             childAspectRatio: 0.75,
@@ -39,14 +39,19 @@ class AllEventsGridPage extends StatelessWidget {
                 ? DateFormat('MMMM d yyyy').format(DateTime.parse(event.date!))
                 : 'Coming Soon';
 
-            return EventCard(
-              imageUrl: event.images?.isNotEmpty ?? false
-                  ? event.images!.first
-                  : 'https://via.placeholder.com/200x150',
-              date: formattedDate,
-              eventName: event.name ?? 'Unnamed Event',
-              location: event.city ?? 'Unknown Location',
-              categoryName: categoryName,
+            return GestureDetector(
+              onTap: () {
+                Get.to(() => EventDetailsPage(event: event));
+              },
+              child: EventCard(
+                imageUrl: event.images?.isNotEmpty ?? false
+                    ? event.images!.first
+                    : 'https://via.placeholder.com/200x150',
+                date: formattedDate,
+                eventName: event.name ?? 'Unnamed Event',
+                location: event.city ?? 'Unknown Location',
+                categoryName: categoryName,
+              ),
             );
           },
         );

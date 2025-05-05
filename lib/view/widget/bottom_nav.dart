@@ -16,10 +16,10 @@ class BottomNavWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: AppColors.textlight,
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Obx(() => GNav(
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.textlight,
             rippleColor: AppColors.primary.withOpacity(0.2),
             hoverColor: AppColors.primary.withOpacity(0.1),
             gap: 8,
@@ -28,7 +28,7 @@ class BottomNavWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             duration: const Duration(milliseconds: 400),
             tabBackgroundColor: AppColors.primary.withOpacity(0.1),
-            color: Colors.grey[600],
+            color: AppColors.textaddn,
             tabs: const [
               GButton(icon: Icons.home, text: 'Home'),
               GButton(icon: Icons.event, text: 'Tickets'),

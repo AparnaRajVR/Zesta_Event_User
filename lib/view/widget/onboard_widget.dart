@@ -30,7 +30,7 @@ class OnboardingPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Text(
             subtitle,
-            style: TextStyle(fontSize: 16, color: Colors.black54),
+            style: TextStyle(fontSize: 16, color:  AppColors.textdark,),
             textAlign: TextAlign.center,
           ),
         ),

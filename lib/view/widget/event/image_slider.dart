@@ -7,11 +7,11 @@ class EventImageSlider extends StatelessWidget {
   final BorderRadius? borderRadius;
 
   const EventImageSlider({
-    Key? key,
+    super.key,
     required this.images,
     this.height,
     this.borderRadius,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

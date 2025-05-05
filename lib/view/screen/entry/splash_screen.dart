@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
            body: Center(child: AnimatedSplashLogo()),
 
-      //  Center(child: Image.asset('assets/images/logo.png', height: 150, width: 150)),
+     
     );
   }
 }
